@@ -82,6 +82,8 @@ public class UserDataFacade {
                 .map(bookMapper::bookRequestToBookDto)
                 .peek(bookDto -> bookDto.setUserId(userUpdated.getId()))
                 .peek(mappedBookDto -> log.info("mapped book: {}", mappedBookDto))
+                .peek(bookDto -> validator.validateId(bookDto.getId()))
+                .peek(mappedBookDto -> log.info("validated id book: {}", mappedBookDto.getId()))
                 .map(bookService::updateBook)
                 .peek(updateBook -> log.info("Updated book: {}", updateBook))
                 .map(BookDto::getId)

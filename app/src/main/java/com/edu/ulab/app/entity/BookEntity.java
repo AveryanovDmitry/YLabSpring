@@ -1,10 +1,11 @@
 package com.edu.ulab.app.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@ToString(callSuper = true)
 public class BookEntity extends EntityStorage {
     private Long userId;
     private String title;

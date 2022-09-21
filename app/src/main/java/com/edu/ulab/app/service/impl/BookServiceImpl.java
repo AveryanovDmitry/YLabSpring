@@ -25,23 +25,20 @@ public class BookServiceImpl implements BookService {
     public BookDto createBook(BookDto bookDto) {
         bookDto.setId(storage.generateId());
         BookEntity book = storage.save(mapper.bookDtoToBookEntity(bookDto));
+        log.info("created a book, assigned an id, saved in storage");
         return mapper.bookEntityToBookDto(book);
     }
 
     @Override
     public BookDto updateBook(BookDto bookDto) {
-        if (bookDto.getId() == null) {
-            log.info("Added book with new id");
-            return createBook(bookDto);
-        } else {
-            log.info("Update book with existing id");
-            BookEntity bookEntity = storage.updateBook(mapper.bookDtoToBookEntity(bookDto));
-            return mapper.bookEntityToBookDto(bookEntity);
-        }
+        BookEntity bookEntity = storage.updateBook(mapper.bookDtoToBookEntity(bookDto));
+        log.info("Updated book with existing id");
+        return mapper.bookEntityToBookDto(bookEntity);
     }
 
     @Override
     public List<BookDto> getBooksByUserId(Long userId) {
+        log.info("Get List book by existing userId");
         return storage.getByUserId(userId)
                 .stream()
                 .map(mapper::bookEntityToBookDto)
@@ -50,6 +47,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void deleteBookByUserId(Long id) {
+        log.info("Delete book by existing id");
         storage.deleteByUserId(id);
     }
 }

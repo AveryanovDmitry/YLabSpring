@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
         // вернуть сохраненного пользователя со всеми необходимыми полями id
         userDto.setId(storage.generateId());
         UserEntity entity = storage.save(mapper.userDtoToUserEntity(userDto));
+        log.info("created a user, assigned an id, saved in storage");
         return mapper.userEntityToUserDto(entity);
     }
 
@@ -34,16 +35,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto updateUser(UserDto userDto) {
         UserEntity userEntity = storage.updateUser(mapper.userDtoToUserEntity(userDto));
+        log.info("Updated user with existing id");
         return mapper.userEntityToUserDto(userEntity);
     }
 
     @Override
     public UserDto getUserById(Long id) {
+        log.info("Get user by existing id");
         return mapper.userEntityToUserDto(storage.getById(id));
     }
 
     @Override
     public void deleteUserById(Long id) {
+        log.info("Delete user by existing id");
         storage.deleteUserById(id);
     }
 }
